@@ -5,6 +5,7 @@ import re
 import sys
 from pathlib import Path
 
+import requests
 import yaml
 
 from adapters import ashby, eightfold, greenhouse, lever, oracle_fusion, smartrecruiters, workday
@@ -69,7 +70,11 @@ def passes_location_filter(job: Job, company: dict, us_only: bool) -> Job:
         return job  # no way to check further; default to keeping (don't hide possible matches)
 
     extra_args = {key: company[key] for key in ADAPTER_EXTRA_ARGS.get(company["ats"], [])}
-    country = enrich(job, company["slug"], **extra_args)
+    try:
+        country = enrich(job, company["slug"], **extra_args)
+    except requests.RequestException as e:
+        print(f"Skipping country lookup for {company['name']} job {job.id}: {e}", file=sys.stderr)
+        return job
     return Job(**{**job.__dict__, "country": country})
 
 
@@ -93,7 +98,11 @@ def main() -> int:
     for company in config.get("companies", []):
         fetch_jobs = ADAPTERS[company["ats"]]
         extra_args = {key: company[key] for key in ADAPTER_EXTRA_ARGS.get(company["ats"], [])}
-        jobs: list[Job] = fetch_jobs(company["slug"], company["name"], **extra_args)
+        try:
+            jobs: list[Job] = fetch_jobs(company["slug"], company["name"], **extra_args)
+        except requests.RequestException as e:
+            print(f"Skipping {company['name']}: {e}", file=sys.stderr)
+            continue
 
         for job in jobs:
             if not matches_keywords(job.title, keywords):
