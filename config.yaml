@@ -1,0 +1,26 @@
+keywords:
+  - intern
+  - internship
+  - co-op
+
+companies:
+  - name: Figma
+    ats: greenhouse
+    slug: figma
+  - name: Asana
+    ats: greenhouse
+    slug: asana
+  - name: Notion
+    ats: ashby
+    slug: notion
+  - name: Databricks
+    ats: greenhouse
+    slug: databricks
+  - name: Cloudflare
+    ats: greenhouse
+    slug: cloudflare
+  - name: Salesforce
+    ats: workday
+    slug: salesforce
+    tenant: wd12
+    site: External_Career_Site
