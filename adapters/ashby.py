@@ -12,6 +12,8 @@ def fetch_jobs(slug: str, company_name: str) -> list[Job]:
 
     jobs = []
     for entry in data.get("jobs", []):
+        address = (entry.get("address") or {}).get("postalAddress") or {}
+        country_name = address.get("addressCountry")
         jobs.append(
             Job(
                 id=str(entry["id"]),
@@ -20,6 +22,7 @@ def fetch_jobs(slug: str, company_name: str) -> list[Job]:
                 location=entry.get("location", "Unknown"),
                 url=entry.get("jobUrl") or entry.get("applyUrl"),
                 posted_at=entry.get("publishedAt"),
+                country="US" if country_name == "United States" else country_name,
             )
         )
     return jobs

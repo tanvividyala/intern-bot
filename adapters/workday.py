@@ -6,7 +6,12 @@ PAGE_SIZE = 20
 
 
 def fetch_jobs(slug: str, company_name: str, tenant: str, site: str) -> list[Job]:
-    """slug is the Workday tenant subdomain (e.g. 'salesforce' -> salesforce.wd12.myworkdayjobs.com)."""
+    """slug is the Workday tenant subdomain (e.g. 'salesforce' -> salesforce.wd12.myworkdayjobs.com).
+
+    The search/list endpoint doesn't expose a structured country field, so `country` is left
+    unset here. Use `fetch_country` to look it up per-job for candidates that already passed
+    other filters (title keywords) to avoid an extra request per listing.
+    """
     url = f"https://{slug}.{tenant}.myworkdayjobs.com/wday/cxs/{slug}/{site}/jobs"
 
     jobs: list[Job] = []
@@ -41,3 +46,12 @@ def fetch_jobs(slug: str, company_name: str, tenant: str, site: str) -> list[Job
             break
 
     return jobs
+
+
+def fetch_country(job: Job, slug: str, tenant: str, site: str) -> str | None:
+    url = f"https://{slug}.{tenant}.myworkdayjobs.com/wday/cxs/{slug}/{site}{job.id}"
+    resp = requests.get(url, timeout=30)
+    resp.raise_for_status()
+    info = resp.json().get("jobPostingInfo", {})
+    country = (info.get("jobRequisitionLocation") or {}).get("country") or {}
+    return country.get("alpha2Code")

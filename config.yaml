@@ -3,6 +3,8 @@ keywords:
   - internship
   - co-op
 
+us_only: true
+
 companies:
   - name: Figma
     ats: greenhouse
@@ -24,3 +26,25 @@ companies:
     slug: salesforce
     tenant: wd12
     site: External_Career_Site
+  - name: Zoox
+    ats: lever
+    slug: zoox
+  - name: Atlassian
+    ats: lever
+    slug: atlassian
+  - name: Cisco
+    ats: workday
+    slug: cisco
+    tenant: wd5
+    site: Cisco_Careers
+  - name: Adobe
+    ats: workday
+    slug: adobe
+    tenant: wd5
+    site: external_experienced
+  - name: Oracle
+    ats: oracle_fusion
+    slug: oracle
+    host: eeho.fa.us2.oraclecloud.com
+    site_number: CX_1001
+    site_alias: jobsearch

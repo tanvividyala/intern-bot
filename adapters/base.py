@@ -10,6 +10,7 @@ class Job:
     location: str
     url: str
     posted_at: str | None
+    country: str | None = None  # ISO 3166-1 alpha-2 code when known (e.g. "US")
 
 
 class Adapter(Protocol):
