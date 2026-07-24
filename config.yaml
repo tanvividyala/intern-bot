@@ -48,3 +48,129 @@ companies:
     host: eeho.fa.us2.oraclecloud.com
     site_number: CX_1001
     site_alias: jobsearch
+  - name: Stripe
+    ats: greenhouse
+    slug: stripe
+  - name: Airbnb
+    ats: greenhouse
+    slug: airbnb
+  - name: Pinterest
+    ats: greenhouse
+    slug: pinterest
+  - name: Reddit
+    ats: greenhouse
+    slug: reddit
+  - name: Datadog
+    ats: greenhouse
+    slug: datadog
+  - name: MongoDB
+    ats: greenhouse
+    slug: mongodb
+  - name: HubSpot
+    ats: greenhouse
+    slug: hubspot
+  - name: Okta
+    ats: greenhouse
+    slug: okta
+  - name: Roblox
+    ats: greenhouse
+    slug: roblox
+  - name: Squarespace
+    ats: greenhouse
+    slug: squarespace
+  - name: DoorDash
+    ats: greenhouse
+    slug: doordashusa
+  - name: Box
+    ats: greenhouse
+    slug: boxinc
+  - name: Epic Games
+    ats: greenhouse
+    slug: epicgames
+  - name: Waymo
+    ats: greenhouse
+    slug: waymo
+  - name: Snowflake
+    ats: ashby
+    slug: snowflake
+  - name: ServiceNow
+    ats: smartrecruiters
+    slug: ServiceNow
+  - name: PayPal
+    ats: workday
+    slug: paypal
+    tenant: wd1
+    site: jobs
+  - name: Capital One
+    ats: workday
+    slug: capitalone
+    tenant: wd12
+    site: Capital_One
+  - name: Mastercard
+    ats: workday
+    slug: mastercard
+    tenant: wd1
+    site: Campus
+  - name: Visa
+    ats: workday
+    slug: visa
+    tenant: wd5
+    site: Visa_Early_Careers
+  - name: NetApp
+    ats: eightfold
+    slug: netapp
+    domain: netapp.com
+  - name: Zoom
+    ats: workday
+    slug: zoom
+    tenant: wd5
+    site: Zoom
+  - name: eBay
+    ats: workday
+    slug: ebay
+    tenant: wd5
+    site: apply
+  - name: Roku
+    ats: greenhouse
+    slug: roku
+  - name: Lyft
+    ats: greenhouse
+    slug: lyft
+  - name: Nintendo
+    ats: greenhouse
+    slug: nintendo
+  - name: Square
+    ats: greenhouse
+    slug: block
+  - name: Spotify
+    ats: lever
+    slug: spotify
+  - name: Crowdstrike
+    ats: workday
+    slug: crowdstrike
+    tenant: wd5
+    site: crowdstrikecareers
+  - name: Palo Alto Networks
+    ats: workday
+    slug: paloaltonetworks
+    tenant: wd5
+    site: panwexternalcareers
+  - name: Workday
+    ats: workday
+    slug: workday
+    tenant: wd5
+    site: Workday
+  - name: Sony Pictures
+    ats: workday
+    slug: spe
+    tenant: wd1
+    site: SonyPicturesEntertainment
+  - name: NBCUniversal
+    ats: smartrecruiters
+    slug: NBCUniversal3
+  - name: Uber
+    ats: oracle_fusion
+    slug: uber
+    host: iaziqy.fa.ocs.oraclecloud.com
+    site_number: CX_1
+    site_alias: UberCareers

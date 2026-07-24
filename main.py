@@ -7,7 +7,7 @@ from pathlib import Path
 
 import yaml
 
-from adapters import ashby, greenhouse, lever, oracle_fusion, workday
+from adapters import ashby, eightfold, greenhouse, lever, oracle_fusion, smartrecruiters, workday
 from adapters.base import Job
 from notifiers import discord
 
@@ -20,11 +20,14 @@ ADAPTERS = {
     "lever": lever.fetch_jobs,
     "workday": workday.fetch_jobs,
     "oracle_fusion": oracle_fusion.fetch_jobs,
+    "smartrecruiters": smartrecruiters.fetch_jobs,
+    "eightfold": eightfold.fetch_jobs,
 }
 # Config keys, beyond slug/name, that each adapter's fetch_jobs accepts as kwargs
 ADAPTER_EXTRA_ARGS = {
     "workday": ["tenant", "site"],
     "oracle_fusion": ["host", "site_number", "site_alias"],
+    "eightfold": ["domain"],
 }
 # ATSes where the list endpoint doesn't expose country, so it must be looked up per-job.
 # Only called for jobs that already passed the keyword filter, to limit extra requests.
