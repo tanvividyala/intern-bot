@@ -43,35 +43,6 @@ python main.py
    - Value: the webhook URL from step 1
 3. The workflow runs on a schedule, or trigger it manually from the Actions tab (`workflow_dispatch`)
 
-## Companies currently configured (45)
-
-Greenhouse: Figma, Asana, Databricks, Cloudflare, Stripe, Airbnb, Pinterest, Reddit, Datadog, MongoDB,
-HubSpot, Okta, Roblox, Squarespace, DoorDash, Box, Epic Games, Waymo, Roku, Lyft, Nintendo, Square (Block)
-Ashby: Notion, Snowflake
-Workday: Salesforce, Cisco, Adobe, PayPal, Capital One, Mastercard, Visa, Zoom, eBay, Crowdstrike,
-Palo Alto Networks, Workday, Sony Pictures
-Lever: Zoox, Atlassian, Spotify
-Oracle Fusion Recruiting Cloud: Oracle, Uber
-SmartRecruiters: ServiceNow, NBCUniversal
-Eightfold: NetApp
-
-### Not included, and why
-
-- **Meta**: `metacareers.com/robots.txt` explicitly prohibits automated data collection without written
-  permission. Skipped out of respect for that notice rather than reverse-engineering their internal API.
-- **IBM**: uses Avature (`ibmglobal.avature.net`), but it's bot-protected/JS-gated with no discoverable
-  public JSON API.
-- **Qualcomm**: on Eightfold, but their instance returns `403 Not authorized` on the public jobs API
-  (locked down, unlike NetApp's).
-- **Intuit**: careers site (`jobs.intuit.com`) runs on TalentBrew backed by a custom `jobs-api.intuit.com`
-  endpoint — not one of the ATSes this bot supports. A legacy SmartRecruiters slug exists but only returns
-  stale 2017 postings, not the live board.
-- **Google, Apple, Amazon, Microsoft, Tesla**: each runs a fully custom in-house careers platform with no
-  public API matching a supported ATS.
-- **LinkedIn**: `linkedin` slugs technically exist on both Greenhouse and Lever, but both only serve
-  internal test/dummy postings, not real listings — LinkedIn's real career site is a separate in-house
-  platform.
-
 ## Adding a company
 
 Add an entry to `config.yaml`:
