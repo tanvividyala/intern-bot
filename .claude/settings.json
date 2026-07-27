@@ -216,7 +216,16 @@
       "Bash(curl -sL -A \"Mozilla/5.0\" \"https://www.yelp.careers/api/apply/v2/jobs?domain=yelp.careers&start=0&num=10&refNum=YELPUS\")",
       "Bash(curl -sL https://cdn.phenompeople.com/CareerConnectResources/common/js/appConfig/ph-app-config-1.14.js -o /private/tmp/claude-501/-Users-tvidyala-Documents-Github-Repos-intern-bot/9006db0a-3814-42a3-afcd-ccfeb366b1ed/scratchpad/appconfig.js)",
       "Bash(curl -sL -A Mozilla/5.0 -X POST https://www.yelp.careers/search-jobs/results -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{\"ddoKey\":\"refineSearch\",\"sortBy\":\"\",\"subsearch\":\"\",\"from\":0,\"s\":1,\"CategoryFacet\":[]}')",
-      "Bash(curl -sL -A \"Mozilla/5.0\" -H \"Accept: application/json\" \"https://www.yelp.careers/search-jobs/results?ddoKey=refineSearch&sortBy=&from=0&s=1\")"
+      "Bash(curl -sL -A \"Mozilla/5.0\" -H \"Accept: application/json\" \"https://www.yelp.careers/search-jobs/results?ddoKey=refineSearch&sortBy=&from=0&s=1\")",
+      "Bash(curl -sL -A Mozilla/5.0 https://www.yelp.careers/us/en/search-results -o /private/tmp/claude-501/-Users-tvidyala-Documents-Github-Repos-intern-bot/9006db0a-3814-42a3-afcd-ccfeb366b1ed/scratchpad/yelp_search.html -w 'http_code=%{http_code} size=%{size_download}\\\\n')",
+      "Bash(curl -sL https://cdn.phenompeople.com/CareerConnectResources/YELPUS/page-scripts/ph-page-1739478818276.js -o /private/tmp/claude-501/-Users-tvidyala-Documents-Github-Repos-intern-bot/9006db0a-3814-42a3-afcd-ccfeb366b1ed/scratchpad/phpage.js)",
+      "Bash(curl -sL -A \"Mozilla/5.0\" -o /dev/null -w \"robots.txt: %{http_code}\\\\n\" \"https://www.yelp.careers/robots.txt\")",
+      "Bash(curl -sL -A \"Mozilla/5.0\" \"https://www.yelp.careers/robots.txt\")",
+      "Bash(curl -sL -A \"Mozilla/5.0\" -o /dev/null -w \"sitemap.xml: %{http_code}\\\\n\" \"https://www.yelp.careers/sitemap.xml\")",
+      "Bash(curl -sL -A Mozilla/5.0 https://www.yelp.careers/us/en/sitemap.xml -o /private/tmp/claude-501/-Users-tvidyala-Documents-Github-Repos-intern-bot/9006db0a-3814-42a3-afcd-ccfeb366b1ed/scratchpad/sitemap.xml -w 'http_code=%{http_code} size=%{size_download}\\\\n')",
+      "Bash(gh secret *)",
+      "Bash(curl -sL -A \"Mozilla/5.0\" -o /dev/null -w \"community.yelp.careers/jobs: %{http_code} -> %{url_effective}\\\\n\" \"https://community.yelp.careers/jobs\")",
+      "Bash(curl -sIL -A \"Mozilla/5.0\" \"https://community.yelp.careers/jobs\")"
     ],
     "defaultMode": "bypassPermissions",
     "additionalDirectories": [
