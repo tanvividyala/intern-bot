@@ -16,6 +16,8 @@ US_STATE_ABBR = [
     "nm", "ny", "nc", "nd", "oh", "ok", "or", "pa", "ri", "sc", "sd", "tn", "tx", "ut", "vt",
     "va", "wa", "wv", "wi", "wy", "dc",
 ]
+# Places outside the US whose names contain a US state name, which would otherwise read as US
+NON_US_LOOKALIKES = ["baja california"]
 _STATE_NAME_RE = re.compile(r"\b(" + "|".join(US_STATE_NAMES) + r")\b", re.IGNORECASE)
 _STATE_ABBR_RE = re.compile(r",\s*(" + "|".join(US_STATE_ABBR) + r")\b", re.IGNORECASE)
 _WORKPLACE_TYPES = {"in-office", "remote", "hybrid", "on-site", "onsite", "flexible"}
@@ -30,6 +32,8 @@ def text_indicates_us(text: str) -> bool:
     lowered = stripped.lower()
     if "united states" in lowered:
         return True
+    for lookalike in NON_US_LOOKALIKES:
+        lowered = lowered.replace(lookalike, "")
     if _STATE_NAME_RE.search(lowered):
         return True
     if _STATE_ABBR_RE.search(lowered):

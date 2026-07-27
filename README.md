@@ -17,10 +17,12 @@ Polls target companies' ATS job boards and pings Discord when a new internship l
 Each ATS exposes location/country data differently, so `adapters/us_location.py` uses the most reliable
 signal available: a structured country field when the ATS provides one (Ashby, Lever, Oracle,
 SmartRecruiters), otherwise a heuristic over the location text (matches "United States" / US state names
-and abbreviations, and flags an explicit non-US country if found). Workday doesn't expose country on its
-list endpoint, so country is looked up per-job (`fetch_country`) only for listings that already matched
-the title keywords, to avoid extra requests. If a job's country can't be determined at all, it's kept
-rather than dropped, since a missed real listing is worse than an occasional ambiguous one.
+and abbreviations — minus `NON_US_LOOKALIKES`, places like Baja California whose names contain a US state
+name — and flags an explicit non-US country if found). Workday and TalentBrew don't expose
+country on their list endpoints, so it's looked up per-job (`fetch_details`, registered in `main.py`'s
+`JOB_ENRICHERS`) only for listings that already matched the title keywords, to avoid extra requests. If
+a job's country can't be determined at all, it's kept rather than dropped, since a missed real listing is
+worse than an occasional ambiguous one.
 
 ## Local setup
 
@@ -49,7 +51,7 @@ Add an entry to `config.yaml`:
 
 ```yaml
 - name: SomeCompany
-  ats: greenhouse   # greenhouse | ashby | lever | workday | oracle_fusion | smartrecruiters | eightfold
+  ats: greenhouse   # greenhouse | ashby | lever | workday | oracle_fusion | smartrecruiters | eightfold | talentbrew
   slug: somecompany
 ```
 
@@ -63,8 +65,17 @@ Add an entry to `config.yaml`:
 - **Oracle Fusion Recruiting Cloud**: needs `host` (the Fusion instance), `site_number` (internal id), and
   `site_alias` (public URL slug) — found by inspecting the careers page's network requests.
 - **Eightfold**: needs `domain` (the company's domain, e.g. `netapp.com`); slug is the Eightfold tenant
-  subdomain (`<slug>.eightfold.ai`). Some Eightfold tenants block the public API (see Qualcomm above) —
-  test with a plain `curl` before adding.
+  subdomain (`<slug>.eightfold.ai`). Two optional fields cover tenants that don't fit that shape:
+  `host`, for companies serving Eightfold from their own careers domain, and `api`, which selects the
+  endpoint — `apply` (default, `/api/apply/v2/jobs`) or `pcsx` (`/api/pcsx/search`, what the hosted
+  careers UI itself calls). Some tenants lock down the apply API but leave pcsx open: Qualcomm's returns
+  `403 Not authorized for PCSX` on apply, while pcsx serves the full board and their `robots.txt`
+  explicitly allows `/api/pcsx`. Test both with a plain `curl` before adding.
+- **TalentBrew**: slug is the careers host (e.g. `jobs.intuit.com`). There's no public jobs API and the
+  `/search-jobs/` pages are disallowed by `robots.txt`, so listings come from `/sitemap.xml` and the real
+  title/location/date are read from each job page's JSON-LD (both allowed by `robots.txt`). Because the
+  sitemap only carries the job URL, titles are first derived from its slug, which drops punctuation —
+  hence keywords match across `-`/space (`co-op` also matches `co op`).
 
 If a company isn't on one of these ATSes, it needs a new adapter in `adapters/` implementing
 `fetch_jobs(slug, company_name, **extra) -> list[Job]`, registered in `main.py`'s `ADAPTERS` (and

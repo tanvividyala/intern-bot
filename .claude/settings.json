@@ -128,8 +128,43 @@
       "Bash(grep -oE 'siteNumber[^,&\"]*' /tmp_oracle_uber.html)",
       "WebFetch(domain:www.linkedin.com)",
       "Bash(curl -s -I \"https://jobs.paloaltonetworks.com/en/search-jobs\")",
-      "Bash(curl -s \"https://jobs.paloaltonetworks.com/en/search-jobs\")"
+      "Bash(curl -s \"https://jobs.paloaltonetworks.com/en/search-jobs\")",
+      "Bash(grep -o '\"/gen/js/\"\\\\|gen/js/ef-\\\\|\\\\.js\"[^\"]\\\\{0,20\\\\}}\\\\[' all.js)",
+      "Bash(grep -oE '\\\\{[0-9]{2,5}:\"[0-9a-f]{20}\"\\(,[0-9]{2,5}:\"[0-9a-f]{20}\"\\){10,}' all.js)",
+      "Bash(curl -s -H \"User-Agent: Mozilla/5.0\" \"https://jobs.intuit.com/job/mountain-view/software-engineer-1/27595/87369448720\" -o /tmp/intuit_job.html -w \"HTTP %{http_code} size %{size_download}\\\\n\")",
+      "Bash(mkdir -p ch)",
+      "Bash(xargs -P 12 -I{} sh -c 'curl -s -m 40 -o \"ch/$\\(basename {}\\)\" \"https://apply.careers.microsoft.com{}\"')",
+      "Bash(curl -s -H \"User-Agent: Mozilla/5.0\" \"https://careers.qualcomm.com/careers/job/446718947455-fy27-intern-software-intern-data-center-cloud-ai-engineering-cork-cork-ireland?domain=qualcomm.com\" -o /tmp/qcjob.html -w \"HTTP %{http_code} size %{size_download}\\\\n\")",
+      "Bash(curl -s -H \"User-Agent: Mozilla/5.0\" \"https://careers.qualcomm.com/api/pcsx/search?domain=qualcomm.com\" -o /tmp/qcapi.json)",
+      "Bash(curl -s -H \"User-Agent: Mozilla/5.0\" \"https://careers.qualcomm.com/api/pcsx/search?domain=qualcomm.com&start=0&num=100\" -o /tmp/qc100.json -w \"HTTP %{http_code}\\\\n\")",
+      "Bash(curl -s \"https://careers.qualcomm.com/api/pcsx/search?domain=qualcomm.com&start=1900&num=10\" -H \"User-Agent: Mozilla/5.0\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\)['data']; print\\(len\\(d['positions']\\), d['count'], [p['id'] for p in d['positions']][:3]\\)\")",
+      "Bash(curl -s \"https://careers.qualcomm.com/api/pcsx/search?domain=qualcomm.com&query=intern&start=0&num=10\" -H \"User-Agent: Mozilla/5.0\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\)['data']; print\\('count',d['count']\\); [print\\(' ', p['name'],'|',p['locations']\\) for p in d['positions'][:5]]\")",
+      "Bash(cat ch/*.js)",
+      "Bash(grep -oiE '\\(www\\\\.ibm\\\\.com/careers[a-z0-9/_?=&.-]{0,60}|careers\\\\.ibm\\\\.com[a-z0-9/_?=&.-]{0,60}\\)' /tmp/ibm.html)",
+      "Bash(curl -s -o /tmp/ibmsj.html -w 'HTTP %{http_code} size %{size_download}\\\\n' -H 'User-Agent: Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/126.0.0.0 Safari/537.36' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' -H 'Accept-Language: en-US,en;q=0.9' -H 'Accept-Encoding: gzip, deflate, br' --compressed https://careers.ibm.com/en_US/careers/SearchJobs/?listFilterMode=1)",
+      "Bash(grep -oiE '<iframe[^>]{0,200}' /tmp/ibm.html)",
+      "Bash(grep -oiE '[^\"]{0,60}jobs[a-z0-9/_?=&.-]{0,40}' /tmp/ibm.html)",
+      "Bash(curl -s -m 25 \"https://netapp.eightfold.ai/api/apply/v2/jobs?domain=netapp.com&start=0&num=2\" -o n.json -w \"%{http_code} %{size_download} \")",
+      "Bash(curl -s -m 25 \"https://microsoft.eightfold.ai/api/apply/v2/jobs?domain=microsoft.com&start=0&num=2\" -w \"%{http_code}\\\\n\" -o /dev/null)",
+      "Bash(curl -s \"https://hybrid-cloud-widgets-production.s3.us.cloud-object-storage.appdomain.cloud/loader.js\" -o /tmp/loader.js -w \"HTTP %{http_code} size %{size_download}\\\\n\")",
+      "Bash(curl -s -o /tmp/rss -w \"JobsRSS -> HTTP %{http_code} size %{size_download} url=%{url_effective}\\\\n\" -L -H \"User-Agent: Mozilla/5.0\" \"https://careers.ibm.com/careers/JobsRSS\")",
+      "Bash(curl -s -o /tmp/x -w \"api/search -> HTTP %{http_code} url=%{url_effective}\\\\n\" -L -H \"User-Agent: Mozilla/5.0\" \"https://www.ibm.com/careers/api/search?q=intern\")",
+      "Bash(python3 -)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" -H \"User-Agent: Mozilla/5.0\" \"https://careers.qualcomm.com/careers/job/446716236335\")",
+      "Bash(curl -s \"https://careers.qualcomm.com/api/pcsx/search?domain=qualcomm.com&query=intern&start=10&num=10\" -H \"User-Agent: Mozilla/5.0\")",
+      "Bash(python3 -c \"import json,sys; [print\\(' ',p['locations'],'|',p['name'][:50]\\) for p in json.load\\(sys.stdin\\)['data']['positions'][:6]]\")",
+      "Bash(curl -s -H \"User-Agent: Mozilla/5.0\" \"https://jobs.intuit.com/job/toronto/fall-2026-social-media-co-op-8-or-12-months/27595/98053616304\" -o /tmp/it2.html -w \"HTTP %{http_code}\\\\n\")",
+      "Bash(.venv/bin/python -c ' *)",
+      "Bash(curl -s -m 20 -o /dev/null -w \"%{http_code} -> %{url_effective}\\\\n\" -L \"https://www.google.com/about/careers/applications/jobs/results/95141459539174086\")",
+      "Bash(curl -s -m 20 -o /dev/null -w \"%{http_code} -> %{url_effective}\\\\n\" -L \"https://www.google.com/about/careers/applications/jobs/results/95141459539174086-x\")",
+      "Bash(curl -s -m 20 -o /dev/null -w \"%{http_code}\\\\n\" -A \"Mozilla/5.0\" \"https://jobs.apple.com/en-us/details/200673612/applied-data-solutions-program-internships\")",
+      "Bash(rm -rf /private/tmp/claude-501/-Users-tvidyala-Documents-Github-Repos-intern-bot/c9f661ed-79e4-48c5-addd-1fea40f6863b/scratchpad/*)"
     ],
-    "defaultMode": "bypassPermissions"
+    "defaultMode": "bypassPermissions",
+    "additionalDirectories": [
+      "/private/tmp/claude-501/-Users-tvidyala-Documents-Github-Repos-intern-bot/c9f661ed-79e4-48c5-addd-1fea40f6863b/scratchpad"
+    ]
   }
 }

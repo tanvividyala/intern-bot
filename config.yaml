@@ -179,3 +179,26 @@ companies:
     slug: disney
     tenant: wd5
     site: disneycareer
+  - name: Wells Fargo
+    ats: workday
+    slug: wf
+    tenant: wd1
+    site: WellsFargoJobs
+  - name: Qualcomm
+    ats: eightfold
+    slug: qualcomm
+    domain: qualcomm.com
+    host: careers.qualcomm.com
+    api: pcsx
+  - name: Intuit
+    ats: talentbrew
+    slug: jobs.intuit.com
+  - name: Amazon
+    ats: amazon
+    slug: amazon
+  - name: Apple
+    ats: apple
+    slug: apple
+  - name: Google
+    ats: google
+    slug: google

@@ -8,7 +8,7 @@ from pathlib import Path
 import requests
 import yaml
 
-from adapters import ashby, eightfold, greenhouse, lever, oracle_fusion, smartrecruiters, workday
+from adapters import amazon, apple, ashby, eightfold, google, greenhouse, lever, oracle_fusion, smartrecruiters, talentbrew, workday
 from adapters.base import Job
 from notifiers import discord
 
@@ -23,17 +23,24 @@ ADAPTERS = {
     "oracle_fusion": oracle_fusion.fetch_jobs,
     "smartrecruiters": smartrecruiters.fetch_jobs,
     "eightfold": eightfold.fetch_jobs,
+    "talentbrew": talentbrew.fetch_jobs,
+    "amazon": amazon.fetch_jobs,
+    "apple": apple.fetch_jobs,
+    "google": google.fetch_jobs,
 }
-# Config keys, beyond slug/name, that each adapter's fetch_jobs accepts as kwargs
+# Config keys, beyond slug/name, that each adapter's fetch_jobs accepts as kwargs. Optional ones
+# are simply left out of the company's config entry, falling back to the adapter's default.
 ADAPTER_EXTRA_ARGS = {
     "workday": ["tenant", "site"],
     "oracle_fusion": ["host", "site_number", "site_alias"],
-    "eightfold": ["domain"],
+    "eightfold": ["domain", "host", "api"],
 }
-# ATSes where the list endpoint doesn't expose country, so it must be looked up per-job.
-# Only called for jobs that already passed the keyword filter, to limit extra requests.
-COUNTRY_ENRICHERS = {
-    "workday": workday.fetch_country,
+# ATSes where the list endpoint doesn't expose country (and sometimes not an exact title either),
+# so it's looked up per-job. Only called for jobs that already passed the keyword filter, to limit
+# extra requests. Each returns the Job fields it resolved.
+JOB_ENRICHERS = {
+    "workday": workday.fetch_details,
+    "talentbrew": talentbrew.fetch_details,
 }
 
 
@@ -56,26 +63,36 @@ def save_seen(seen: set[str]) -> None:
         f.write("\n")
 
 
+def adapter_args(company: dict) -> dict:
+    return {key: company[key] for key in ADAPTER_EXTRA_ARGS.get(company["ats"], []) if key in company}
+
+
+def keyword_pattern(keyword: str) -> str:
+    """Matches the keyword however its words are separated, so 'co-op' also matches 'co op' —
+    titles derived from URL slugs (TalentBrew) lose the punctuation."""
+    words = [re.escape(word) for word in re.split(r"[\s-]+", keyword.strip()) if word]
+    return r"\b" + r"[\s-]+".join(words) + r"\b"
+
+
 def matches_keywords(title: str, keywords: list[str]) -> bool:
-    return any(re.search(rf"\b{re.escape(keyword)}\b", title, re.IGNORECASE) for keyword in keywords)
+    return any(re.search(keyword_pattern(keyword), title, re.IGNORECASE) for keyword in keywords)
 
 
-def passes_location_filter(job: Job, company: dict, us_only: bool) -> Job:
-    """Returns the (possibly country-enriched) job if it should be kept, else None-ish via job.country check by caller."""
+def enrich_job(job: Job, company: dict, us_only: bool) -> Job:
+    """Fills in fields the ATS's list endpoint didn't expose (notably country) from a per-job lookup."""
     if not us_only or job.country is not None:
         return job
 
-    enrich = COUNTRY_ENRICHERS.get(company["ats"])
+    enrich = JOB_ENRICHERS.get(company["ats"])
     if enrich is None:
         return job  # no way to check further; default to keeping (don't hide possible matches)
 
-    extra_args = {key: company[key] for key in ADAPTER_EXTRA_ARGS.get(company["ats"], [])}
     try:
-        country = enrich(job, company["slug"], **extra_args)
+        details = enrich(job, company["slug"], **adapter_args(company))
     except requests.RequestException as e:
-        print(f"Skipping country lookup for {company['name']} job {job.id}: {e}", file=sys.stderr)
+        print(f"Skipping detail lookup for {company['name']} job {job.id}: {e}", file=sys.stderr)
         return job
-    return Job(**{**job.__dict__, "country": country})
+    return Job(**{**job.__dict__, **details})
 
 
 def main() -> int:
@@ -97,9 +114,8 @@ def main() -> int:
     total_new = 0
     for company in config.get("companies", []):
         fetch_jobs = ADAPTERS[company["ats"]]
-        extra_args = {key: company[key] for key in ADAPTER_EXTRA_ARGS.get(company["ats"], [])}
         try:
-            jobs: list[Job] = fetch_jobs(company["slug"], company["name"], **extra_args)
+            jobs: list[Job] = fetch_jobs(company["slug"], company["name"], **adapter_args(company))
         except requests.RequestException as e:
             print(f"Skipping {company['name']}: {e}", file=sys.stderr)
             continue
@@ -112,7 +128,7 @@ def main() -> int:
             if key in seen:
                 continue
 
-            job = passes_location_filter(job, company, us_only)
+            job = enrich_job(job, company, us_only)
             new_seen.add(key)  # mark seen now so we don't re-check a known-excluded job every run
 
             if us_only and job.country is not None and job.country != "US":
