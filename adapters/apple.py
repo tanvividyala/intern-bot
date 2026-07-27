@@ -43,7 +43,10 @@ def fetch_jobs(slug: str, company_name: str) -> list[Job]:
     session = requests.Session()
     token_resp = session.get(CSRF_URL, timeout=30)
     token_resp.raise_for_status()
-    session.headers["X-Apple-CSRF-Token"] = token_resp.headers["X-Apple-CSRF-Token"]
+    csrf_token = token_resp.headers.get("X-Apple-CSRF-Token")
+    if not csrf_token:
+        raise RuntimeError("Apple CSRF token missing from response headers")
+    session.headers["X-Apple-CSRF-Token"] = csrf_token
 
     by_id: dict[str, Job] = {}
 

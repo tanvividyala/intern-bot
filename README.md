@@ -51,7 +51,7 @@ Add an entry to `config.yaml`:
 
 ```yaml
 - name: SomeCompany
-  ats: greenhouse   # greenhouse | ashby | lever | workday | oracle_fusion | smartrecruiters | eightfold | talentbrew
+  ats: greenhouse   # greenhouse | ashby | lever | workday | oracle_fusion | smartrecruiters | eightfold | talentbrew | icims
   slug: somecompany
 ```
 
@@ -76,6 +76,10 @@ Add an entry to `config.yaml`:
   title/location/date are read from each job page's JSON-LD (both allowed by `robots.txt`). Because the
   sitemap only carries the job URL, titles are first derived from its slug, which drops punctuation —
   hence keywords match across `-`/space (`co-op` also matches `co op`).
+- **iCIMS**: slug is the careers host (e.g. `careers.rivian.com`) — the modern "Jibe" front end
+  iCIMS acquired, not the legacy `icims.com` board. Its `/api/jobs?page=&limit=` endpoint returns
+  structured `title`/`location_name`/`country_code`/`posted_date` fields directly, so no per-job
+  enrichment is needed; `limit` caps out at 100 per page.
 
 If a company isn't on one of these ATSes, it needs a new adapter in `adapters/` implementing
 `fetch_jobs(slug, company_name, **extra) -> list[Job]`, registered in `main.py`'s `ADAPTERS` (and

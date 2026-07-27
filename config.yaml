@@ -9,113 +9,144 @@ companies:
   - name: Figma
     ats: greenhouse
     slug: figma
+    domain: figma.com
   - name: Asana
     ats: greenhouse
     slug: asana
+    domain: asana.com
   - name: Notion
     ats: ashby
     slug: notion
+    domain: notion.so
   - name: Databricks
     ats: greenhouse
     slug: databricks
+    domain: databricks.com
   - name: Cloudflare
     ats: greenhouse
     slug: cloudflare
+    domain: cloudflare.com
   - name: Salesforce
     ats: workday
     slug: salesforce
     tenant: wd12
     site: External_Career_Site
+    domain: salesforce.com
   - name: Zoox
     ats: lever
     slug: zoox
+    domain: zoox.com
   - name: Atlassian
     ats: lever
     slug: atlassian
+    domain: atlassian.com
   - name: Cisco
     ats: workday
     slug: cisco
     tenant: wd5
     site: Cisco_Careers
+    domain: cisco.com
   - name: Adobe
     ats: workday
     slug: adobe
     tenant: wd5
     site: external_experienced
+    domain: adobe.com
   - name: Oracle
     ats: oracle_fusion
     slug: oracle
     host: eeho.fa.us2.oraclecloud.com
     site_number: CX_1001
     site_alias: jobsearch
+    domain: oracle.com
   - name: Stripe
     ats: greenhouse
     slug: stripe
+    domain: stripe.com
   - name: Airbnb
     ats: greenhouse
     slug: airbnb
+    domain: airbnb.com
   - name: Pinterest
     ats: greenhouse
     slug: pinterest
+    domain: pinterest.com
   - name: Reddit
     ats: greenhouse
     slug: reddit
+    domain: reddit.com
   - name: Datadog
     ats: greenhouse
     slug: datadog
+    domain: datadoghq.com
   - name: MongoDB
     ats: greenhouse
     slug: mongodb
+    domain: mongodb.com
   - name: HubSpot
     ats: greenhouse
     slug: hubspot
+    domain: hubspot.com
   - name: Okta
     ats: greenhouse
     slug: okta
+    domain: okta.com
   - name: Roblox
     ats: greenhouse
     slug: roblox
+    domain: roblox.com
   - name: Squarespace
     ats: greenhouse
     slug: squarespace
+    domain: squarespace.com
   - name: DoorDash
     ats: greenhouse
     slug: doordashusa
+    domain: doordash.com
   - name: Box
     ats: greenhouse
     slug: boxinc
+    domain: box.com
   - name: Epic Games
     ats: greenhouse
     slug: epicgames
+    domain: epicgames.com
   - name: Waymo
     ats: greenhouse
     slug: waymo
+    domain: waymo.com
   - name: Snowflake
     ats: ashby
     slug: snowflake
+    domain: snowflake.com
   - name: ServiceNow
     ats: smartrecruiters
     slug: ServiceNow
+    domain: servicenow.com
   - name: PayPal
     ats: workday
     slug: paypal
     tenant: wd1
     site: jobs
+    domain: paypal.com
   - name: Capital One
     ats: workday
     slug: capitalone
     tenant: wd12
     site: Capital_One
+    domain: capitalone.com
   - name: Mastercard
     ats: workday
     slug: mastercard
     tenant: wd1
     site: Campus
+    domain: mastercard.com
   - name: Visa
     ats: workday
     slug: visa
     tenant: wd5
     site: Visa_Early_Careers
+    domain: visa.com
   - name: NetApp
     ats: eightfold
     slug: netapp
@@ -125,65 +156,80 @@ companies:
     slug: zoom
     tenant: wd5
     site: Zoom
+    domain: zoom.us
   - name: eBay
     ats: workday
     slug: ebay
     tenant: wd5
     site: apply
+    domain: ebay.com
   - name: Roku
     ats: greenhouse
     slug: roku
+    domain: roku.com
   - name: Lyft
     ats: greenhouse
     slug: lyft
+    domain: lyft.com
   - name: Nintendo
     ats: greenhouse
     slug: nintendo
+    domain: nintendo.com
   - name: Square
     ats: greenhouse
     slug: block
+    domain: squareup.com
   - name: Spotify
     ats: lever
     slug: spotify
+    domain: spotify.com
   - name: Crowdstrike
     ats: workday
     slug: crowdstrike
     tenant: wd5
     site: crowdstrikecareers
+    domain: crowdstrike.com
   - name: Palo Alto Networks
     ats: workday
     slug: paloaltonetworks
     tenant: wd5
     site: panwexternalcareers
+    domain: paloaltonetworks.com
   - name: Workday
     ats: workday
     slug: workday
     tenant: wd5
     site: Workday
+    domain: workday.com
   - name: Sony Pictures
     ats: workday
     slug: spe
     tenant: wd1
     site: SonyPicturesEntertainment
+    domain: sonypictures.com
   - name: NBCUniversal
     ats: smartrecruiters
     slug: NBCUniversal3
+    domain: nbcuniversal.com
   - name: Uber
     ats: oracle_fusion
     slug: uber
     host: iaziqy.fa.ocs.oraclecloud.com
     site_number: CX_1
     site_alias: UberCareers
+    domain: uber.com
   - name: Disney
     ats: workday
     slug: disney
     tenant: wd5
     site: disneycareer
+    domain: disney.com
   - name: Wells Fargo
     ats: workday
     slug: wf
     tenant: wd1
     site: WellsFargoJobs
+    domain: wellsfargo.com
   - name: Qualcomm
     ats: eightfold
     slug: qualcomm
@@ -193,12 +239,52 @@ companies:
   - name: Intuit
     ats: talentbrew
     slug: jobs.intuit.com
+    domain: intuit.com
   - name: Amazon
     ats: amazon
     slug: amazon
+    domain: amazon.com
   - name: Apple
     ats: apple
     slug: apple
+    domain: apple.com
   - name: Google
     ats: google
     slug: google
+    domain: google.com
+  - name: Rivian
+    ats: icims
+    slug: careers.rivian.com
+    domain: rivian.com
+  - name: Dropbox
+    ats: greenhouse
+    slug: dropbox
+    domain: dropbox.com
+  - name: Ramp
+    ats: ashby
+    slug: ramp
+    domain: ramp.com
+  - name: Chime
+    ats: greenhouse
+    slug: chime
+    domain: chime.com
+  - name: Plaid
+    ats: lever
+    slug: plaid
+    domain: plaid.com
+  - name: Nextdoor
+    ats: greenhouse
+    slug: nextdoor
+    domain: nextdoor.com
+  - name: Instacart
+    ats: greenhouse
+    slug: instacart
+    domain: instacart.com
+  - name: GoFundMe
+    ats: greenhouse
+    slug: gofundme
+    domain: gofundme.com
+  - name: GitHub
+    ats: icims
+    slug: www.github.careers
+    domain: github.com

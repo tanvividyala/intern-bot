@@ -8,7 +8,7 @@ from pathlib import Path
 import requests
 import yaml
 
-from adapters import amazon, apple, ashby, eightfold, google, greenhouse, lever, oracle_fusion, smartrecruiters, talentbrew, workday
+from adapters import amazon, apple, ashby, eightfold, google, greenhouse, icims, lever, oracle_fusion, smartrecruiters, talentbrew, workday
 from adapters.base import Job
 from notifiers import discord
 
@@ -24,6 +24,7 @@ ADAPTERS = {
     "smartrecruiters": smartrecruiters.fetch_jobs,
     "eightfold": eightfold.fetch_jobs,
     "talentbrew": talentbrew.fetch_jobs,
+    "icims": icims.fetch_jobs,
     "amazon": amazon.fetch_jobs,
     "apple": apple.fetch_jobs,
     "google": google.fetch_jobs,
@@ -112,35 +113,47 @@ def main() -> int:
         return 1
 
     total_new = 0
-    for company in config.get("companies", []):
-        fetch_jobs = ADAPTERS[company["ats"]]
-        try:
-            jobs: list[Job] = fetch_jobs(company["slug"], company["name"], **adapter_args(company))
-        except requests.RequestException as e:
-            print(f"Skipping {company['name']}: {e}", file=sys.stderr)
-            continue
-
-        for job in jobs:
-            if not matches_keywords(job.title, keywords):
+    try:
+        for company in config.get("companies", []):
+            fetch_jobs = ADAPTERS[company["ats"]]
+            try:
+                jobs: list[Job] = fetch_jobs(company["slug"], company["name"], **adapter_args(company))
+            except Exception as e:
+                # Catches adapter bugs (bad API responses, etc.) too, not just network errors --
+                # one company's broken adapter should never take down the whole run and, with it,
+                # the state save below for every company already processed.
+                print(f"Skipping {company['name']}: {e}", file=sys.stderr)
                 continue
 
-            key = f"{company['name']}:{job.id}"
-            if key in seen:
-                continue
+            for job in jobs:
+                if not matches_keywords(job.title, keywords):
+                    continue
 
-            job = enrich_job(job, company, us_only)
-            new_seen.add(key)  # mark seen now so we don't re-check a known-excluded job every run
+                key = f"{company['name']}:{job.id}"
+                if key in seen:
+                    continue
 
-            if us_only and job.country is not None and job.country != "US":
-                continue
+                try:
+                    job = enrich_job(job, company, us_only)
+                    new_seen.add(key)  # mark seen now so we don't re-check a known-excluded job every run
 
-            total_new += 1
-            if args.dry_run:
-                print(f"[NEW] {job.company} - {job.title} ({job.location}) [{job.country or 'unknown'}] {job.url}")
-            else:
-                discord.send(webhook_url, job)
+                    if us_only and job.country is not None and job.country != "US":
+                        continue
 
-    save_seen(new_seen)
+                    total_new += 1
+                    if args.dry_run:
+                        print(f"[NEW] {job.company} - {job.title} ({job.location}) [{job.country or 'unknown'}] {job.url}")
+                    else:
+                        logo_url = f"https://logo.clearbit.com/{company['domain']}" if company.get("domain") else None
+                        discord.send(webhook_url, job, logo_url)
+                except Exception as e:
+                    print(f"Skipping {company['name']} job {job.id}: {e}", file=sys.stderr)
+    finally:
+        # Always persist whatever was marked seen, even if something above raised unexpectedly --
+        # otherwise a single crash mid-run replays every notification already sent this run on
+        # the next invocation, since nothing else records that they went out.
+        save_seen(new_seen)
+
     print(f"Done. {total_new} new internship listing(s) found.")
     return 0
 
