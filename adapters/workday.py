@@ -29,7 +29,10 @@ def fetch_jobs(slug: str, company_name: str, tenant: str, site: str) -> list[Job
             break
 
         for entry in postings:
-            path = entry["externalPath"]
+            path = entry.get("externalPath")
+            if not path:
+                print(f"Skipping job posting without externalPath: {entry.get('title', 'Unknown')}")
+                continue
             jobs.append(
                 Job(
                     id=path,
