@@ -208,7 +208,15 @@
       "Bash(curl -s -I \"https://github.careers\")",
       "Bash(curl -s -L \"https://github.careers\" -o /tmp/gh.html -w \"%{url_effective}\\\\n\")",
       "Bash(curl -s \"https://www.github.careers/api/jobs?page=1&limit=5\")",
-      "WebFetch(domain:jobs.lever.co)"
+      "WebFetch(domain:jobs.lever.co)",
+      "Bash(curl -sL -A \"Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/124.0 Safari/537.36\" \"https://www.yelp.careers/us/en/search-results\" -o /tmp_yelp.html)",
+      "Bash(wc -l /tmp_yelp.html)",
+      "Bash(grep -o -E 'refNum[\"'\"'\"']?\\\\s*[:=]\\\\s*[\"'\"'\"'][^\"'\"'\"']+' /tmp_yelp.html)",
+      "Bash(curl -sL -A 'Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/124.0 Safari/537.36' https://www.yelp.careers/us/en/search-results -o /private/tmp/claude-501/-Users-tvidyala-Documents-Github-Repos-intern-bot/9006db0a-3814-42a3-afcd-ccfeb366b1ed/scratchpad/yelp.html -w 'http_code=%{http_code} size=%{size_download}\\\\n')",
+      "Bash(curl -sL -A \"Mozilla/5.0\" \"https://www.yelp.careers/api/apply/v2/jobs?domain=yelp.careers&start=0&num=10&refNum=YELPUS\")",
+      "Bash(curl -sL https://cdn.phenompeople.com/CareerConnectResources/common/js/appConfig/ph-app-config-1.14.js -o /private/tmp/claude-501/-Users-tvidyala-Documents-Github-Repos-intern-bot/9006db0a-3814-42a3-afcd-ccfeb366b1ed/scratchpad/appconfig.js)",
+      "Bash(curl -sL -A Mozilla/5.0 -X POST https://www.yelp.careers/search-jobs/results -H 'Content-Type: application/json' -H 'Accept: application/json' -d '{\"ddoKey\":\"refineSearch\",\"sortBy\":\"\",\"subsearch\":\"\",\"from\":0,\"s\":1,\"CategoryFacet\":[]}')",
+      "Bash(curl -sL -A \"Mozilla/5.0\" -H \"Accept: application/json\" \"https://www.yelp.careers/search-jobs/results?ddoKey=refineSearch&sortBy=&from=0&s=1\")"
     ],
     "defaultMode": "bypassPermissions",
     "additionalDirectories": [
