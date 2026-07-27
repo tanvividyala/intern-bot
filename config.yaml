@@ -174,3 +174,8 @@ companies:
     host: iaziqy.fa.ocs.oraclecloud.com
     site_number: CX_1
     site_alias: UberCareers
+  - name: Disney
+    ats: workday
+    slug: disney
+    tenant: wd5
+    site: disneycareer
