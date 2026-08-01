@@ -288,3 +288,16 @@ companies:
     ats: icims
     slug: www.github.careers
     domain: github.com
+  - name: Toast
+    ats: greenhouse
+    slug: toast
+    domain: toasttab.com
+  - name: Netflix
+    ats: eightfold
+    slug: netflix
+    domain: netflix.com
+    host: explore.jobs.netflix.net
+  - name: Tubi
+    ats: greenhouse
+    slug: tubitv
+    domain: tubi.tv
