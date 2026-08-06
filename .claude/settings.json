@@ -251,7 +251,19 @@
       "Bash(curl -s \"https://corporate.tubitv.com/careers/\" -o /tmp/tubi.html)",
       "Bash(curl -s \"https://corporate.tubitv.com/wp-content/themes/tubi/assets/js/tubi.js?ver=1.0.0\")",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"https://boards-api.greenhouse.io/v1/boards/tubitv/jobs\")",
-      "Bash(curl -s \"https://boards-api.greenhouse.io/v1/boards/tubitv/jobs\")"
+      "Bash(curl -s \"https://boards-api.greenhouse.io/v1/boards/tubitv/jobs\")",
+      "Bash(curl -s -I \"https://jobs.careers.microsoft.com/global/en/search?q=intern\")",
+      "Bash(curl -s \"https://gcsservices.careers.microsoft.com/search/api/v1/search?q=intern&l=en_us&pg=1&pgSz=20&o=Relevance\" -H \"Accept: application/json\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"https://gcsservices.careers.microsoft.com/search/api/v1/search?q=intern&l=en_us&pg=1&pgSz=20&o=Relevance\")",
+      "Bash(curl -s -v \"https://jobs.careers.microsoft.com/global/en/search?q=intern%20product%20manager\")",
+      "Bash(curl -s -w \"\\\\nHTTP_CODE:%{http_code}\\\\n\" \"https://gcsservices.careers.microsoft.com/search/api/v1/search?q=intern&l=en_us&pg=1&pgSz=5&o=Relevance\" -H \"Accept: application/json\" --max-time 10)",
+      "Bash(nslookup gcsservices.careers.microsoft.com)",
+      "Bash(curl -sv \"https://gcsservices.careers.microsoft.com/search/api/v1/search?q=intern&l=en_us&pg=1&pgSz=5&o=Relevance\" -H \"Accept: application/json\" --max-time 10)",
+      "Bash(curl -s -A \"Mozilla/5.0\" \"https://jobs.appliedmaterials.com/sitemap.xml\")",
+      "Bash(python main.py --dry-run)",
+      "Bash(curl -sk -w \"\\\\nHTTP_CODE:%{http_code}\\\\n\" \"https://gcsservices.careers.microsoft.com/search/api/v1/search?q=intern&l=en_us&pg=1&pgSz=5&o=Relevance\" -H \"Accept: application/json\" --max-time 10)",
+      "Bash(curl -s \"https://apply.careers.microsoft.com/?q=intern\" -A \"Mozilla/5.0\" --max-time 15 -o /tmp/ms.html -w \"%{http_code}\\\\n\")",
+      "Bash(curl -sL \"https://apply.careers.microsoft.com/?q=intern\" -A \"Mozilla/5.0\" --max-time 15 -o /tmp/ms.html -w \"FINAL:%{http_code} URL:%{url_effective}\\\\n\")"
     ],
     "defaultMode": "bypassPermissions",
     "additionalDirectories": [

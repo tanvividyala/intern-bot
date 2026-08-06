@@ -240,6 +240,10 @@ companies:
     ats: talentbrew
     slug: jobs.intuit.com
     domain: intuit.com
+  - name: Applied Materials
+    ats: talentbrew
+    slug: jobs.appliedmaterials.com
+    domain: appliedmaterials.com
   - name: Amazon
     ats: amazon
     slug: amazon
