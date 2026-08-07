@@ -404,7 +404,11 @@
       "Bash(curl -s -o /dev/null -w \"http_code=%{http_code} content_type=%{content_type} size=%{size_download}\\\\n\" \"https://icons.duckduckgo.com/ip3/stripe.com.ico\" --max-time 8)",
       "Bash(python3 \"/private/tmp/claude-501/-Users-tvidyala-Documents-Github-Repos-intern-bot/e42f9349-59ce-4c67-9ce9-0fcc1fd72cf6/scratchpad/test_discord2.py\")",
       "Bash(timeout 60 python -c ' *)",
-      "Bash(curl -s -X POST https://cvshealth.wd1.myworkdayjobs.com/wday/cxs/cvshealth/CVS_Health_Careers/jobs -H 'Content-Type: application/json' -d '{\"appliedFacets\":{},\"limit\":20,\"offset\":0,\"searchText\":\"pharmacy intern\"}')"
+      "Bash(curl -s -X POST https://cvshealth.wd1.myworkdayjobs.com/wday/cxs/cvshealth/CVS_Health_Careers/jobs -H 'Content-Type: application/json' -d '{\"appliedFacets\":{},\"limit\":20,\"offset\":0,\"searchText\":\"pharmacy intern\"}')",
+      "Bash(curl -s \"https://api.github.com/repos/tanvividyala/intern-bot/actions/runs?per_page=15\")",
+      "Bash(curl -s -i \"https://api.github.com/repos/tanvividyala/intern-bot/actions/runs?per_page=5\")",
+      "Bash(python3 -c \"import json; d=json.load\\(open\\('state/seen_jobs.json'\\)\\); print\\(type\\(d\\), len\\(d\\)\\); print\\(d[:3]\\); print\\(d[-3:]\\)\")",
+      "Bash(git commit -m ' *)"
     ],
     "defaultMode": "bypassPermissions",
     "additionalDirectories": [
