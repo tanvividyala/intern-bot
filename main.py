@@ -103,6 +103,7 @@ def main() -> int:
 
     config = load_config()
     keywords = config.get("keywords", [])
+    exclude_keywords = config.get("exclude_keywords", [])
     us_only = config.get("us_only", False)
     seen = load_seen()
     new_seen = set(seen)
@@ -127,6 +128,8 @@ def main() -> int:
 
             for job in jobs:
                 if not matches_keywords(job.title, keywords):
+                    continue
+                if matches_keywords(job.title, exclude_keywords):
                     continue
 
                 key = f"{company['name']}:{job.id}"

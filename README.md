@@ -7,8 +7,9 @@ Polls target companies' ATS job boards and pings Discord when a new internship l
 - `config.yaml` lists companies, each pointing at an ATS and slug (plus a few ATS-specific fields — see below)
 - `adapters/` fetches and normalizes job listings per ATS, including a best-effort US-location detection
   (`adapters/us_location.py`) used when `us_only: true` is set in config
-- `main.py` filters titles against `keywords`, filters by location if `us_only` is set, diffs against
-  `state/seen_jobs.json`, and sends a Discord notification for anything new
+- `main.py` filters titles against `keywords`, drops any that also match `exclude_keywords`, filters by
+  location if `us_only` is set, diffs against `state/seen_jobs.json`, and sends a Discord notification for
+  anything new
 - `.github/workflows/check-listings.yml` runs this on a schedule via GitHub Actions and commits the
   updated state file back to the repo
 

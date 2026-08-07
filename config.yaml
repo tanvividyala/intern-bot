@@ -3,6 +3,10 @@ keywords:
   - internship
   - co-op
 
+# Titles matching any of these are dropped even if they match `keywords` above.
+exclude_keywords:
+  - pharmacy intern
+
 us_only: true
 
 companies:

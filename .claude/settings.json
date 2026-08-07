@@ -402,7 +402,9 @@
       "Bash(curl -s \"https://unavatar.io/figma.com\" -o /tmp/unavatar_figma.svg --max-time 8)",
       "Bash(curl -s -o /dev/null -w \"http_code=%{http_code}\\\\n\" \"https://unavatar.io/figma.com?fallback=false\" --max-time 8)",
       "Bash(curl -s -o /dev/null -w \"http_code=%{http_code} content_type=%{content_type} size=%{size_download}\\\\n\" \"https://icons.duckduckgo.com/ip3/stripe.com.ico\" --max-time 8)",
-      "Bash(python3 \"/private/tmp/claude-501/-Users-tvidyala-Documents-Github-Repos-intern-bot/e42f9349-59ce-4c67-9ce9-0fcc1fd72cf6/scratchpad/test_discord2.py\")"
+      "Bash(python3 \"/private/tmp/claude-501/-Users-tvidyala-Documents-Github-Repos-intern-bot/e42f9349-59ce-4c67-9ce9-0fcc1fd72cf6/scratchpad/test_discord2.py\")",
+      "Bash(timeout 60 python -c ' *)",
+      "Bash(curl -s -X POST https://cvshealth.wd1.myworkdayjobs.com/wday/cxs/cvshealth/CVS_Health_Careers/jobs -H 'Content-Type: application/json' -d '{\"appliedFacets\":{},\"limit\":20,\"offset\":0,\"searchText\":\"pharmacy intern\"}')"
     ],
     "defaultMode": "bypassPermissions",
     "additionalDirectories": [
