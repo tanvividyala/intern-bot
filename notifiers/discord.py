@@ -9,16 +9,17 @@ MAX_RETRIES = 3
 
 def send(webhook_url: str, job: Job, logo_url: str | None = None) -> None:
     embed = {
+        # Author renders above the title in bold, so it reads as the largest text next to the
+        # role name itself -- Discord embeds have no font-size control, this is the closest we
+        # get to putting the company name "almost as big as" the title.
+        "author": {"name": job.company, "icon_url": logo_url} if logo_url else {"name": job.company},
         "title": job.title,
         "url": job.url,
         "color": 0x5865F2,
         "fields": [
-            {"name": "Company", "value": job.company, "inline": True},
             {"name": "Location", "value": job.location, "inline": True},
         ],
     }
-    if logo_url:
-        embed["thumbnail"] = {"url": logo_url}
 
     for attempt in range(MAX_RETRIES):
         resp = requests.post(webhook_url, json={"embeds": [embed]}, timeout=15)

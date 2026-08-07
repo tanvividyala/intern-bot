@@ -144,7 +144,9 @@ def main() -> int:
                     if args.dry_run:
                         print(f"[NEW] {job.company} - {job.title} ({job.location}) [{job.country or 'unknown'}] {job.url}")
                     else:
-                        logo_url = f"https://logo.clearbit.com/{company['domain']}" if company.get("domain") else None
+                        # Clearbit's free logo API (logo.clearbit.com) was shut down; Google's
+                        # favicon service is a reliable, no-key-required replacement.
+                        logo_url = f"https://www.google.com/s2/favicons?domain={company['domain']}&sz=128" if company.get("domain") else None
                         discord.send(webhook_url, job, logo_url)
                 except Exception as e:
                     print(f"Skipping {company['name']} job {job.id}: {e}", file=sys.stderr)

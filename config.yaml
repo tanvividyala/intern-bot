@@ -276,6 +276,88 @@ companies:
     ats: lever
     slug: plaid
     domain: plaid.com
+  - name: Affirm
+    ats: greenhouse
+    slug: affirm
+    domain: affirm.com
+  - name: Ripple
+    ats: greenhouse
+    slug: ripple
+    domain: ripple.com
+  - name: Airtable
+    ats: greenhouse
+    slug: airtable
+    domain: airtable.com
+  - name: Workato
+    ats: greenhouse
+    slug: workato
+    domain: workato.com
+  - name: Arista Networks
+    ats: smartrecruiters
+    slug: aristanetworks
+  - name: The Trade Desk
+    ats: greenhouse
+    slug: thetradedesk
+    domain: thetradedesk.com
+  - name: Autodesk
+    ats: workday
+    slug: autodesk
+    tenant: wd1
+    site: Ext
+    domain: autodesk.com
+  - name: West Monroe
+    ats: greenhouse
+    slug: westmonroe4
+  - name: Moloco
+    ats: greenhouse
+    slug: moloco
+    domain: moloco.com
+  - name: Patreon
+    ats: ashby
+    slug: patreon
+    domain: patreon.com
+  - name: Illumio
+    ats: ashby
+    slug: illumio
+    domain: illumio.com
+  - name: Crusoe
+    ats: ashby
+    slug: crusoe
+    domain: crusoe.ai
+  - name: Typeface
+    ats: greenhouse
+    slug: typeface
+    domain: typeface.ai
+  - name: Proofpoint
+    ats: workday
+    slug: proofpoint
+    tenant: wd5
+    site: ProofpointCareers
+    domain: proofpoint.com
+  - name: UiPath
+    ats: ashby
+    slug: uipath
+    domain: uipath.com
+  - name: DataCamp
+    ats: greenhouse
+    slug: datacamp
+    domain: datacamp.com
+  - name: CVS Health
+    ats: workday
+    slug: cvshealth
+    tenant: wd1
+    site: CVS_Health_Careers
+    domain: cvshealth.com
+  - name: Intel
+    ats: workday
+    slug: intel
+    tenant: wd1
+    site: External
+    domain: intel.com
+  - name: PlayStation
+    ats: greenhouse
+    slug: sonyinteractiveentertainmentglobal
+    domain: playstation.com
   - name: Nextdoor
     ats: greenhouse
     slug: nextdoor

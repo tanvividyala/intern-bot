@@ -8,11 +8,12 @@ PAGE_SIZE = 20
 DATE_FORMAT = {"longDate": "MMMM D, YYYY", "mediumDate": "MMM D, YYYY"}
 US_COUNTRY_ID = "iso-country-USA"
 # Like Amazon, jobs.apple.com is a single global site with a fuzzy full-text search rather
-# than a per-company board. Searching "intern" alone pulls in ~1,800 mostly-unrelated hits
-# (heavy stemming/boilerplate matching), but "internship" and "co-op" stay tight and still
-# cover the bare-"Intern"-titled postings, so we search those and let main.py's title regex
-# do the final filtering.
-QUERIES = ["internship", "co-op"]
+# than a per-company board. "internship"/"co-op" alone occasionally miss bare-"Intern"-titled
+# postings (e.g. "Intern Program") since Apple's relevance ranking doesn't always surface them
+# for those queries. "intern" alone pulls in ~1,800 mostly-unrelated hits (heavy stemming/
+# boilerplate matching over ~90 pages), but that's fine: main.py's title regex uses a \bintern\b
+# word boundary, so noise like "Internal"/"International" is filtered out downstream anyway.
+QUERIES = ["internship", "co-op", "intern"]
 
 
 def _job_country(entry: dict) -> str | None:
