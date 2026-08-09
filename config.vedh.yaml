@@ -1,0 +1,81 @@
+keywords:
+  - intern
+  - internship
+  - co-op
+  - co-ops
+
+# Titles matching any of these are dropped even if they match `keywords` above.
+exclude_keywords:
+  - pharmacy intern
+
+us_only: true
+
+companies:
+  - name: Roche
+    ats: workday
+    slug: roche
+    tenant: wd3
+    site: roche-ext
+    domain: roche.com
+  - name: Genentech
+    ats: workday
+    slug: roche
+    tenant: wd3
+    site: ROG-A2O-GENE
+    domain: gene.com
+  - name: Eli Lilly
+    ats: workday
+    slug: lilly
+    tenant: wd115
+    site: LLY
+    domain: lilly.com
+  - name: Johnson & Johnson
+    ats: workday
+    slug: jj
+    tenant: wd5
+    site: JJ
+    domain: jnj.com
+  - name: Amgen
+    ats: workday
+    slug: amgen
+    tenant: wd1
+    site: Careers
+    domain: amgen.com
+  - name: Pfizer
+    ats: workday
+    slug: pfizer
+    tenant: wd1
+    site: PfizerCareers
+    domain: pfizer.com
+  - name: Illumina
+    ats: workday
+    slug: illumina
+    tenant: wd1
+    site: illumina-careers
+    domain: illumina.com
+  - name: Ultima Genomics
+    ats: greenhouse
+    slug: ultimagenomics
+    domain: ultimagenomics.com
+  - name: Dexcom
+    ats: workday
+    slug: dexcom
+    tenant: wd1
+    site: Dexcom
+    domain: dexcom.com
+  - name: Neurocrine Biosciences
+    ats: workday
+    slug: neurocrine
+    tenant: wd5
+    site: Neurocrinecareers
+    domain: neurocrine.com
+  - name: Medtronic
+    ats: workday
+    slug: medtronic
+    tenant: wd1
+    site: MedtronicCareers
+    domain: medtronic.com
+  - name: Carlsmed
+    ats: bamboohr
+    slug: carlsmed
+    domain: carlsmed.com

@@ -8,12 +8,11 @@ from pathlib import Path
 import requests
 import yaml
 
-from adapters import amazon, apple, ashby, eightfold, google, greenhouse, icims, lever, oracle_fusion, smartrecruiters, talentbrew, workday
+from adapters import amazon, apple, ashby, bamboohr, eightfold, google, greenhouse, icims, lever, oracle_fusion, smartrecruiters, talentbrew, workday
 from adapters.base import Job
 from notifiers import discord
 
 ROOT = Path(__file__).parent
-STATE_PATH = ROOT / "state" / "seen_jobs.json"
 
 ADAPTERS = {
     "greenhouse": greenhouse.fetch_jobs,
@@ -28,6 +27,7 @@ ADAPTERS = {
     "amazon": amazon.fetch_jobs,
     "apple": apple.fetch_jobs,
     "google": google.fetch_jobs,
+    "bamboohr": bamboohr.fetch_jobs,
 }
 # Config keys, beyond slug/name, that each adapter's fetch_jobs accepts as kwargs. Optional ones
 # are simply left out of the company's config entry, falling back to the adapter's default.
@@ -45,21 +45,28 @@ JOB_ENRICHERS = {
 }
 
 
-def load_config() -> dict:
-    with open(ROOT / "config.yaml") as f:
+def default_state_path(config_path: Path) -> Path:
+    """config.yaml -> state/seen_jobs.json; config.<board>.yaml -> state/seen_jobs.<board>.json."""
+    stem = config_path.stem  # e.g. "config" or "config.vedh"
+    suffix = stem[len("config"):]  # "" or ".vedh"
+    return ROOT / "state" / f"seen_jobs{suffix}.json"
+
+
+def load_config(config_path: Path) -> dict:
+    with open(config_path) as f:
         return yaml.safe_load(f)
 
 
-def load_seen() -> set[str]:
-    if not STATE_PATH.exists():
+def load_seen(state_path: Path) -> set[str]:
+    if not state_path.exists():
         return set()
-    with open(STATE_PATH) as f:
+    with open(state_path) as f:
         return set(json.load(f))
 
 
-def save_seen(seen: set[str]) -> None:
-    STATE_PATH.parent.mkdir(parents=True, exist_ok=True)
-    with open(STATE_PATH, "w") as f:
+def save_seen(seen: set[str], state_path: Path) -> None:
+    state_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(state_path, "w") as f:
         json.dump(sorted(seen), f, indent=2)
         f.write("\n")
 
@@ -99,18 +106,30 @@ def enrich_job(job: Job, company: dict, us_only: bool) -> Job:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--dry-run", action="store_true", help="Print matches instead of sending Discord notifications")
+    parser.add_argument("--config", default="config.yaml", help="Path to the board's config file (default: config.yaml)")
+    parser.add_argument("--state", default=None, help="Path to the board's seen-jobs state file (default: derived from --config)")
+    parser.add_argument(
+        "--webhook-env",
+        default="DISCORD_WEBHOOK_URL",
+        help="Env var to read the Discord webhook URL from (default: DISCORD_WEBHOOK_URL)",
+    )
     args = parser.parse_args()
 
-    config = load_config()
+    config_path = Path(args.config)
+    if not config_path.is_absolute():
+        config_path = ROOT / config_path
+    state_path = Path(args.state) if args.state else default_state_path(config_path)
+
+    config = load_config(config_path)
     keywords = config.get("keywords", [])
     exclude_keywords = config.get("exclude_keywords", [])
     us_only = config.get("us_only", False)
-    seen = load_seen()
+    seen = load_seen(state_path)
     new_seen = set(seen)
 
-    webhook_url = os.environ.get("DISCORD_WEBHOOK_URL")
+    webhook_url = os.environ.get(args.webhook_env)
     if not args.dry_run and not webhook_url:
-        print("DISCORD_WEBHOOK_URL is not set", file=sys.stderr)
+        print(f"{args.webhook_env} is not set", file=sys.stderr)
         return 1
 
     total_new = 0
@@ -157,7 +176,7 @@ def main() -> int:
         # Always persist whatever was marked seen, even if something above raised unexpectedly --
         # otherwise a single crash mid-run replays every notification already sent this run on
         # the next invocation, since nothing else records that they went out.
-        save_seen(new_seen)
+        save_seen(new_seen, state_path)
 
     print(f"Done. {total_new} new internship listing(s) found.")
     return 0

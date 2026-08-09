@@ -408,11 +408,30 @@
       "Bash(curl -s \"https://api.github.com/repos/tanvividyala/intern-bot/actions/runs?per_page=15\")",
       "Bash(curl -s -i \"https://api.github.com/repos/tanvividyala/intern-bot/actions/runs?per_page=5\")",
       "Bash(python3 -c \"import json; d=json.load\\(open\\('state/seen_jobs.json'\\)\\); print\\(type\\(d\\), len\\(d\\)\\); print\\(d[:3]\\); print\\(d[-3:]\\)\")",
-      "Bash(git commit -m ' *)"
+      "Bash(git commit -m ' *)",
+      "Bash(curl -s \"https://boards-api.greenhouse.io/v1/boards/ultimagenomics/jobs?content=false\")",
+      "Bash(python main.py --config config.vedh.yaml --dry-run)",
+      "WebFetch(domain:carlsmed.com)",
+      "Bash(curl -s \"https://carlsmed.com/carlsmed-careers/\")",
+      "Bash(curl -s \"https://carlsmed.bamboohr.com/careers/list\")",
+      "Bash(curl -s \"https://carlsmed.bamboohr.com/jobs/embed2.php?version=1.0.0\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" \"https://carlsmed.bamboohr.com/careers/232\")",
+      "Bash(curl -s \"https://gitlab.bamboohr.com/careers/list\" -o /dev/null -w \"gitlab: %{http_code}\\\\n\")",
+      "Bash(curl -s \"https://gitlab.bamboohr.com/careers/list\")",
+      "Bash(python3 -c \"import json,sys;d=json.load\\(sys.stdin\\);print\\(d['meta']\\);print\\(d['result'][0] if d['result'] else 'empty'\\)\")",
+      "Bash(rm -f state/seen_jobs.vedh.json)",
+      "Bash(ps -p 74405 -o etime=,time=)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(len\\(d\\)\\); print\\(d\\)\")",
+      "Bash(kill 74405)",
+      "Bash(pkill -f \"backfill_vedh.py\")",
+      "Bash(python /tmp/backfill_vedh.py --send)",
+      "Bash(command -v gh)"
     ],
     "defaultMode": "bypassPermissions",
     "additionalDirectories": [
-      "/private/tmp/claude-501/-Users-tvidyala-Documents-Github-Repos-intern-bot/c9f661ed-79e4-48c5-addd-1fea40f6863b/scratchpad"
+      "/private/tmp/claude-501/-Users-tvidyala-Documents-Github-Repos-intern-bot/c9f661ed-79e4-48c5-addd-1fea40f6863b/scratchpad",
+      "/tmp",
+      "/private/tmp"
     ]
   }
 }

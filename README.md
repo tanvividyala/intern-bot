@@ -8,10 +8,25 @@ Polls target companies' ATS job boards and pings Discord when a new internship l
 - `adapters/` fetches and normalizes job listings per ATS, including a best-effort US-location detection
   (`adapters/us_location.py`) used when `us_only: true` is set in config
 - `main.py` filters titles against `keywords`, drops any that also match `exclude_keywords`, filters by
-  location if `us_only` is set, diffs against `state/seen_jobs.json`, and sends a Discord notification for
-  anything new
+  location if `us_only` is set, diffs against a state file, and sends a Discord notification for anything new
 - `.github/workflows/check-listings.yml` runs this on a schedule via GitHub Actions and commits the
-  updated state file back to the repo
+  updated state file(s) back to the repo
+
+### Multiple boards
+
+The bot supports more than one independent board — different companies, keywords, and Discord
+webhook — by using a separate config file per board. `config.yaml` is the default board; each
+additional board gets its own `config.<name>.yaml` (e.g. `config.vedh.yaml`), passed via `--config`:
+
+```bash
+python main.py --config config.vedh.yaml --dry-run
+python main.py --config config.vedh.yaml --webhook-env DISCORD_WEBHOOK_URL_VEDH
+```
+
+The state file defaults to `state/seen_jobs.json` for `config.yaml` and `state/seen_jobs.<name>.json`
+for `config.<name>.yaml` (override with `--state` if needed), so boards never share seen-job state.
+See `.github/workflows/check-listings.yml` for how each board is run as its own step with its own
+webhook secret.
 
 ### US-location filtering
 
@@ -36,13 +51,17 @@ python main.py --dry-run
 # Send real notifications (requires DISCORD_WEBHOOK_URL)
 export DISCORD_WEBHOOK_URL="https://discord.com/api/webhooks/..."
 python main.py
+
+# A second board (own config, state file, and webhook env var)
+python main.py --config config.vedh.yaml --webhook-env DISCORD_WEBHOOK_URL_VEDH
 ```
 
 ## GitHub Actions setup
 
 1. Create a Discord webhook: Server Settings -> Integrations -> Webhooks -> New Webhook -> Copy URL
 2. In the repo: Settings -> Secrets and variables -> Actions -> New repository secret
-   - Name: `DISCORD_WEBHOOK_URL`
+   - Name: `DISCORD_WEBHOOK_URL` (or `DISCORD_WEBHOOK_URL_<BOARD>` for an additional board, matching
+     the `--webhook-env` used for that board in the workflow)
    - Value: the webhook URL from step 1
 3. The workflow runs on a schedule, or trigger it manually from the Actions tab (`workflow_dispatch`)
 
