@@ -39,7 +39,6 @@
       "Bash(curl -sI \"https://eeho.fa.us2.oraclecloud.com/hcmUI/CandidateExperience/en/sites/jobsearch/job/337770\")",
       "Bash(curl -s \"https://api.lever.co/v0/postings/atlassian?mode=json\")",
       "Bash(curl -s \"https://api.lever.co/v0/postings/zoox?mode=json\")",
-      "Bash(curl -s -o /dev/null -w \"Discord webhook test: HTTP %{http_code}\\\\n\" -X POST \"https://discord.com/api/webhooks/1530050074175082546/0ZU-2bRcpR3vkBxGWn-ejuFZC3iwkAuhH98B0kODiOuIpwLU1sEv_22izjyw_14bHFnz\" -H \"Content-Type: application/json\" -d '{\"content\": \"intern-bot: webhook test — if you see this, notifications are working.\"}')",
       "Bash(curl -s \"https://boards-api.greenhouse.io/v1/boards/figma/jobs?content=true\")",
       "Bash(curl -s \"https://boards-api.greenhouse.io/v1/boards/cloudflare/jobs/8031027\")",
       "Bash(curl -s \"https://boards-api.greenhouse.io/v1/boards/databricks/jobs/7011263002\")",
@@ -425,7 +424,10 @@
       "Bash(kill 74405)",
       "Bash(pkill -f \"backfill_vedh.py\")",
       "Bash(python /tmp/backfill_vedh.py --send)",
-      "Bash(command -v gh)"
+      "Bash(command -v gh)",
+      "Bash(python3 -c \"import ast; ast.parse\\(open\\('main.py'\\).read\\(\\)\\)\")",
+      "Bash(time python3 main.py --dry-run --config config.yaml)",
+      "Bash(curl -s -m 5 -o /dev/null -w \"%{http_code}\\\\n\" https://api.greenhouse.io/v1/boards/airbnb/jobs)"
     ],
     "defaultMode": "bypassPermissions",
     "additionalDirectories": [
