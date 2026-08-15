@@ -71,7 +71,7 @@ Add an entry to `config.yaml`:
 
 ```yaml
 - name: SomeCompany
-  ats: greenhouse   # greenhouse | ashby | lever | workday | oracle_fusion | smartrecruiters | eightfold | talentbrew | icims
+  ats: greenhouse   # greenhouse | ashby | lever | workday | oracle_fusion | smartrecruiters | eightfold | talentbrew | icims | oleeo
   slug: somecompany
 ```
 
@@ -100,6 +100,13 @@ Add an entry to `config.yaml`:
   iCIMS acquired, not the legacy `icims.com` board. Its `/api/jobs?page=&limit=` endpoint returns
   structured `title`/`location_name`/`country_code`/`posted_date` fields directly, so no per-job
   enrichment is needed; `limit` caps out at 100 per page.
+- **Oleeo** (the `tal.net` campus-recruiting platform, separate from a company's main ATS): slug is
+  the careers host (e.g. `bankcampuscareers.tal.net`). Requires `vacancy_ids`, a list of the numeric
+  job-board category ids to pull — Oleeo splits a board into several categories under the same host,
+  mixing actual postings with recruiting-event listings, so ids must be picked by checking each
+  `/vx/mobile-0/candidate/jobboard/vacancy/<id>/adv/` page (or its `/feed` Atom feed) in a browser and
+  keeping only the ones that list programs/roles. No login is required to read the public `/feed`
+  endpoint for a given id.
 
 If a company isn't on one of these ATSes, it needs a new adapter in `adapters/` implementing
 `fetch_jobs(slug, company_name, **extra) -> list[Job]`, registered in `main.py`'s `ADAPTERS` (and

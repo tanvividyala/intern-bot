@@ -8,7 +8,7 @@ from pathlib import Path
 import requests
 import yaml
 
-from adapters import amazon, apple, ashby, bamboohr, eightfold, google, greenhouse, icims, lever, oracle_fusion, smartrecruiters, talentbrew, workday
+from adapters import amazon, apple, ashby, bamboohr, eightfold, google, greenhouse, icims, lever, oleeo, oracle_fusion, smartrecruiters, talentbrew, workday
 from adapters.base import Job
 from notifiers import discord
 
@@ -28,6 +28,7 @@ ADAPTERS = {
     "apple": apple.fetch_jobs,
     "google": google.fetch_jobs,
     "bamboohr": bamboohr.fetch_jobs,
+    "oleeo": oleeo.fetch_jobs,
 }
 # Config keys, beyond slug/name, that each adapter's fetch_jobs accepts as kwargs. Optional ones
 # are simply left out of the company's config entry, falling back to the adapter's default.
@@ -35,6 +36,7 @@ ADAPTER_EXTRA_ARGS = {
     "workday": ["tenant", "site"],
     "oracle_fusion": ["host", "site_number", "site_alias"],
     "eightfold": ["domain", "host", "api"],
+    "oleeo": ["vacancy_ids"],
 }
 # ATSes where the list endpoint doesn't expose country (and sometimes not an exact title either),
 # so it's looked up per-job. Only called for jobs that already passed the keyword filter, to limit
@@ -157,19 +159,24 @@ def main() -> int:
 
                 try:
                     job = enrich_job(job, company, us_only)
-                    new_seen.add(key)  # mark seen now so we don't re-check a known-excluded job every run
 
                     if us_only and job.country is not None and job.country != "US":
+                        new_seen.add(key)  # legitimate exclusion; don't re-check this job every run
                         continue
 
                     total_new += 1
                     if args.dry_run:
+                        # Preview only -- don't mark seen, so a genuinely new match still gets a
+                        # real notification once this is run for real.
                         print(f"[NEW] {job.company} - {job.title} ({job.location}) [{job.country or 'unknown'}] {job.url}")
                     else:
                         # Clearbit's free logo API (logo.clearbit.com) was shut down; Google's
                         # favicon service is a reliable, no-key-required replacement.
                         logo_url = f"https://www.google.com/s2/favicons?domain={company['domain']}&sz=128" if company.get("domain") else None
                         discord.send(webhook_url, job, logo_url)
+                        # Only mark seen once the notification actually went out -- a failed send
+                        # (bad webhook, exhausted retries) should be retried next run, not dropped.
+                        new_seen.add(key)
                 except Exception as e:
                     print(f"Skipping {company['name']} job {job.id}: {e}", file=sys.stderr)
     finally:

@@ -135,9 +135,12 @@
   "Amazon:10499683",
   "Amazon:10499684",
   "Amazon:10499685",
+<<<<<<< Updated upstream
   "Amazon:10500718",
   "Amazon:10501526",
   "Amazon:10502807",
+=======
+>>>>>>> Stashed changes
   "Amazon:3063220",
   "Amazon:3071340",
   "Amazon:3074226",
@@ -267,7 +270,17 @@
   "Autodesk:/job/Montreal-QC-CAN/Stagiaire-en-Dveloppement-Cloud--Intern-Cloud-Developer---FCAP_26WD100406-2",
   "Autodesk:/job/Montreal-QC-CAN/Stagiaire-en-Dveloppement-Cloud--Intern-Cloud-Developer_26WD100400",
   "Autodesk:/job/Norway---Oslo/Software-Engineering-Intern-Summer-2027_26WD100046",
+<<<<<<< Updated upstream
   "Autodesk:/job/Toronto-ON-CAN/Intern--Research-Associate--HCI-_26WD100593-1",
+=======
+  "Bank of America:13208",
+  "Bank of America:14257",
+  "Bank of America:14302",
+  "Bank of America:14454",
+  "Bank of America:14455",
+  "Bank of America:14462",
+  "Bank of America:14463",
+>>>>>>> Stashed changes
   "CVS Health:/job/00035---Garfield-Beach-CVS-LLC/Pharmacy-Intern---Grad_R0996011",
   "CVS Health:/job/00035---Garfield-Beach-CVS-LLC/Pharmacy-Intern---Grad_R0996012",
   "CVS Health:/job/00074---Virginia-CVS-Pharmacy-LLC/Pharmacy-Intern---Grad_R0996017",
@@ -3511,10 +3524,15 @@
   "Intuit:98731491968",
   "Intuit:98731492016",
   "Intuit:98962244160",
+<<<<<<< Updated upstream
   "Mastercard:/job/Arlington-Virginia/Associate-Consultant-Intern_R-286204",
   "Mastercard:/job/Beijing-China/Associate-Consultant-Intern--Summer-2027---Beijing--China_R-287578",
   "Mastercard:/job/Beijing-China/Sales-Analyst-Intern--Summer-2027---Beijing--China_R-287576",
   "Mastercard:/job/Bentonville-Arkansas/Associate-Consultant-Intern--Summer-2027---United-States_R-287613",
+=======
+  "Mastercard:/job/Beijing-China/Associate-Consultant-Intern--Summer-2027---Beijing--China_R-287578",
+  "Mastercard:/job/Beijing-China/Sales-Analyst-Intern--Summer-2027---Beijing--China_R-287576",
+>>>>>>> Stashed changes
   "Mastercard:/job/Bogota-Colombia/Internship-Program---Mastercard---2027---Bogota--Colombia_R-286675-1",
   "Mastercard:/job/Buenos-Aires-Argentina/Associate-Consultant-Intern--2027---Buenos-Aires--Argentina_R-282260",
   "Mastercard:/job/Buenos-Aires-Argentina/Internship-Program--Americas--2027---Buenos-Aires--Argentina_R-282259",
@@ -3757,9 +3775,12 @@
   "Wells Fargo:/job/CHARLOTTE-NC/XMLNAME-2027-COO-Global-Operations-Summer-Internship---Early-Careers_R-556448",
   "Wells Fargo:/job/CHARLOTTE-NC/XMLNAME-2027-Corporate-Risk-Development-Program-Summer-Internship--Core-Risk----Early-Careers_R-556123",
   "Wells Fargo:/job/CHARLOTTE-NC/XMLNAME-2027-Public-Affairs-Summer-Internship---Early-Careers_R-557289",
+<<<<<<< Updated upstream
   "Wells Fargo:/job/CHARLOTTE-NC/XMLNAME-2027-Quantitative-Analytics-Summer-Internship-Capital-Markets--Masters----Early-Careers_R-568270",
   "Wells Fargo:/job/CHARLOTTE-NC/XMLNAME-2027-Quantitative-Analytics-Summer-Internship-Capital-Markets--PhD----Early-Careers_R-568279",
   "Wells Fargo:/job/CHARLOTTE-NC/XMLNAME-2027-Quantitative-Analytics-Summer-Internship-Risk-Analytics-and-Decision-Sciences--Masters----Early-Careers_R-568259",
+=======
+>>>>>>> Stashed changes
   "Workato:8039633002",
   "Workato:8492935002",
   "Workato:8618614002",

@@ -391,3 +391,43 @@ companies:
     ats: greenhouse
     slug: tubitv
     domain: tubi.tv
+  - name: LiveRamp
+    ats: workday
+    slug: liveramp
+    tenant: wd5
+    site: LiveRampCareers
+    domain: liveramp.com
+  - name: Twilio
+    ats: eightfold
+    slug: twilio
+    domain: twilio.com
+    host: jobs.twilio.com
+    api: pcsx
+  - name: Abbott
+    ats: workday
+    slug: abbott
+    tenant: wd5
+    site: abbottcareers
+    domain: abbott.com
+  - name: Bank of America
+    ats: oleeo
+    slug: bankcampuscareers.tal.net
+    vacancy_ids: [1, 5]
+  - name: Rubrik
+    ats: greenhouse
+    slug: rubrik
+    domain: rubrik.com
+  - name: Glean
+    ats: greenhouse
+    slug: gleanwork
+    domain: glean.com
+  - name: Guidewire
+    ats: workday
+    slug: guidewire
+    tenant: wd5
+    site: external
+    domain: guidewire.com
+  - name: Confluent
+    ats: ashby
+    slug: confluent
+    domain: confluent.io
