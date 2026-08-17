@@ -1,9 +1,12 @@
+import time
+
 import requests
 
 from adapters.base import Job
 from adapters.us_location import detect_country
 
 PAGE_SIZE = 10
+MAX_RETRIES = 3
 
 
 def fetch_jobs(slug: str, company_name: str, domain: str, host: str | None = None, api: str = "apply") -> list[Job]:
@@ -24,7 +27,15 @@ def fetch_jobs(slug: str, company_name: str, domain: str, host: str | None = Non
     jobs: list[Job] = []
     start = 0
     while True:
-        resp = requests.get(api_url, params={"domain": domain, "start": start, "num": PAGE_SIZE}, timeout=30)
+        for attempt in range(MAX_RETRIES):
+            resp = requests.get(api_url, params={"domain": domain, "start": start, "num": PAGE_SIZE}, timeout=30)
+            # Large boards paginate in runs of hundreds of requests (Eightfold's page size caps
+            # at 10 regardless of `num`), which routinely trips per-IP rate limiting partway
+            # through -- back off and retry rather than dropping the rest of the board.
+            if resp.status_code == 429 and attempt < MAX_RETRIES - 1:
+                time.sleep(int(resp.headers.get("Retry-After", 2)) * (attempt + 1))
+                continue
+            break
         resp.raise_for_status()
         positions, total = unpack(resp.json())
         if not positions:

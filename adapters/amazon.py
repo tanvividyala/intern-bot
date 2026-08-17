@@ -23,6 +23,9 @@ def fetch_jobs(slug: str, company_name: str) -> list[Job]:
             resp = requests.get(
                 SEARCH_API,
                 params={"base_query": query, "offset": offset, "result_limit": PAGE_SIZE, "sort": "recent"},
+                # amazon.jobs serves zstd-encoded responses that trip a urllib3/zstd decoder bug
+                # ("cannot use a decompressobj multiple times"); gzip is plenty and sidesteps it.
+                headers={"Accept-Encoding": "gzip, deflate"},
                 timeout=30,
             )
             resp.raise_for_status()

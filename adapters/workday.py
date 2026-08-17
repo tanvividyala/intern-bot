@@ -33,10 +33,16 @@ def fetch_jobs(slug: str, company_name: str, tenant: str, site: str) -> list[Job
             if not path:
                 print(f"Skipping job posting without externalPath: {entry.get('title', 'Unknown')}")
                 continue
+            title = entry.get("title")
+            if not title:
+                # Some tenants briefly list a posting (with an externalPath) before its title is
+                # indexed -- skip rather than crash the whole company's fetch on entry["title"].
+                print(f"Skipping job posting without title: {path}")
+                continue
             jobs.append(
                 Job(
                     id=path,
-                    title=entry["title"],
+                    title=title,
                     company=company_name,
                     location=entry.get("locationsText", "Unknown"),
                     url=f"https://{slug}.{tenant}.myworkdayjobs.com/{site}{path}",
