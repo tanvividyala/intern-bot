@@ -238,7 +238,6 @@ companies:
     ats: eightfold
     slug: qualcomm
     domain: qualcomm.com
-    host: careers.qualcomm.com
     api: pcsx
   - name: Intuit
     ats: talentbrew
@@ -431,3 +430,7 @@ companies:
     ats: ashby
     slug: confluent
     domain: confluent.io
+  - name: AMD
+    ats: icims
+    slug: careers.amd.com
+    domain: amd.com
