@@ -16,11 +16,11 @@ Polls target companies' ATS job boards and pings Discord when a new internship l
 
 The bot supports more than one independent board — different companies, keywords, and Discord
 webhook — by using a separate config file per board. `config.yaml` is the default board; each
-additional board gets its own `config.<name>.yaml` (e.g. `config.vedh.yaml`), passed via `--config`:
+additional board gets its own `config.<name>.yaml` (e.g. `config.[name].yaml`), passed via `--config`:
 
 ```bash
-python main.py --config config.vedh.yaml --dry-run
-python main.py --config config.vedh.yaml --webhook-env DISCORD_WEBHOOK_URL_VEDH
+python main.py --config config.[name].yaml --dry-run
+python main.py --config config.[name].yaml --webhook-env DISCORD_WEBHOOK_URL_[name]
 ```
 
 The state file defaults to `state/seen_jobs.json` for `config.yaml` and `state/seen_jobs.<name>.json`
@@ -53,7 +53,7 @@ export DISCORD_WEBHOOK_URL="https://discord.com/api/webhooks/..."
 python main.py
 
 # A second board (own config, state file, and webhook env var)
-python main.py --config config.vedh.yaml --webhook-env DISCORD_WEBHOOK_URL_VEDH
+python main.py --config config.[name].yaml --webhook-env DISCORD_WEBHOOK_URL_[name]
 ```
 
 ## GitHub Actions setup
